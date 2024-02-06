@@ -149,6 +149,7 @@ fits_dists <- function(data, dists, min_pmix, range_shape1, range_shape2, contro
 #'
 #' If the `right` argument is different to the `left` argument then the data are considered to be censored.
 #'
+#' @inheritParams rlang::args_dots_empty
 #' @inheritParams params
 #' @return An object of class fitdists.
 #' @seealso [`ssd_plot_cdf()`] and [`ssd_hc()`]
@@ -160,7 +161,9 @@ fits_dists <- function(data, dists, min_pmix, range_shape1, range_shape2, contro
 #' ssd_plot_cdf(fits)
 #' ssd_hc(fits)
 ssd_fit_dists <- function(
-    data, left = "Conc", right = left, weight = NULL,
+    data, left = "Conc", right = left,
+    ...,
+    weight = NULL,
     dists = ssd_dists_bcanz(),
     nrow = 6L,
     rescale = FALSE,
@@ -173,6 +176,7 @@ ssd_fit_dists <- function(
     range_shape2 = range_shape1,
     control = list(),
     silent = FALSE) {
+  rlang::check_dots_empty()
   chk_character_or_factor(dists)
   chk_vector(dists)
   check_dim(dists, values = TRUE)
